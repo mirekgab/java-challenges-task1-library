@@ -1,0 +1,13 @@
+delete from Book;
+alter table Book alter column id restart with 1;
+insert into Book(id, title, author, publish_year) values (1, 'title1', 'author1', '2001');
+insert into Book(id, title, author, publish_year) values (2, 'title2', 'author2', '2002');
+insert into Book(id, title, author, publish_year) values (3, 'title3', 'author3', '2003');
+insert into Book(id, title, author, publish_year) values (4, 'title4', 'author4', '2004');
+insert into Book(id, title, author, publish_year) values (5, 'title5', 'author5', '2005');
+insert into Book(id, title, author, publish_year) values (6, 'title6', 'author6', '2006');
+insert into Book(id, title, author, publish_year) values (7, 'title7', 'author7', '2007');
+insert into Book(id, title, author, publish_year) values (8, 'title8', 'author8', '2008');
+insert into Book(id, title, author, publish_year) values (9, 'title9', 'author9', '2009');
+insert into Book(id, title, author, publish_year) values (10, 'title10', 'author10', '2010');
+alter table Book alter column id restart with 11;
