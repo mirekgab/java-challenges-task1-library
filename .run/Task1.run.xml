@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Task1" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="pl.mirekgab.task1.Task1Application" />
+    <module name="task1-library" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

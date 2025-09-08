@@ -61,12 +61,49 @@ public class MockMVCBookControllerTestIT {
                 .andReturn();
 
         String result = mvcResult.getResponse().getContentAsString();
-        System.out.println(result);
         BookDTO bookDTO = objectMapper.readValue(result, BookDTO.class);
         assertAll(
                 () -> assertEquals(dto.author(), bookDTO.author(), "author should be the same"),
                 () -> assertEquals(dto.title(), bookDTO.title(), "title should be the same"),
                 () -> assertEquals(dto.publishYear(), bookDTO.publishYear(), "publish year should be the same")
+        );
+    }
+
+    @Test
+    void testCreateBookInvalidTitle() throws Exception {
+        NewBookDTO dto = new NewBookDTO("", "test", 2000);
+        MvcResult mvcResult = this.mockMvc.perform(
+                        post("/api/book/create")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(dto))
+                )
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String result = mvcResult.getResponse().getContentAsString();
+        ErrorResponseDTO errorResponseDTO = objectMapper.readValue(result, ErrorResponseDTO.class);
+        assertAll(
+                () -> assertEquals(400, errorResponseDTO.status(), "status should be the same"),
+                () -> assertEquals("createBook.bookDTO.title: title is mandatory", errorResponseDTO.message(), "message should be the same")
+        );
+    }
+
+    @Test
+    void testCreateBookInvalidAuthor() throws Exception {
+        NewBookDTO dto = new NewBookDTO("title", "", 2000);
+        MvcResult mvcResult = this.mockMvc.perform(
+                        post("/api/book/create")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(dto))
+                )
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String result = mvcResult.getResponse().getContentAsString();
+        ErrorResponseDTO errorResponseDTO = objectMapper.readValue(result, ErrorResponseDTO.class);
+        assertAll(
+                () -> assertEquals(400, errorResponseDTO.status(), "status should be the same"),
+                () -> assertEquals("createBook.bookDTO.author: author is mandatory", errorResponseDTO.message(), "message should be the same")
         );
     }
 
